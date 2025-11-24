@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Productivity Tracker - Module Summary</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+        }
+        .feature-card h4 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+        .feature-card p {
+            margin-bottom: 0;
+            font-size: 0.95em;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        .list-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .list-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border-left: 3px solid #007bff;
+            border-radius: 2px;
+        }
+        .list-item strong {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #28a745;
+            margin: 15px 0;
+        }
+        .info {
+            background-color: #d1ecf1;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #17a2b8;
+            margin: 15px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Employee Productivity Tracker</h1>
+        <p>Comprehensive Odoo Module for Real-Time Employee Productivity Monitoring</p>
+    </div>
+
+    <div class="section">
+        <h2>Overview</h2>
+        <p>
+            The Employee Productivity Tracker is a complete Odoo module designed to monitor, track, and analyze employee 
+            productivity in real-time. It provides automated task timing, screenshot capture, app usage monitoring, and 
+            comprehensive reporting capabilities for managers.
+        </p>
+        <div class="info">
+            <strong>Version:</strong> 1.0.0 | <strong>Compatibility:</strong> Odoo 18.0+ | <strong>License:</strong> LGPL-3
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Core Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>⏱️ Task Timer</h4>
+                <p>Start/stop/pause/resume timers for tasks with precise time tracking and automatic calculations.</p>
+            </div>
+            <div class="feature-card">
+                <h4>📸 Screenshot Capture</h4>
+                <p>Automatic screenshots at configurable intervals with timestamps and storage in Odoo backend.</p>
+            </div>
+            <div class="feature-card">
+                <h4>🔍 App Detection</h4>
+                <p>Automatic detection of non-work applications with configurable restricted apps list.</p>
+            </div>
+            <div class="feature-card">
+                <h4>⚙️ Idle Detection</h4>
+                <p>System idle detection automatically pauses timer after configured timeout period.</p>
+            </div>
+            <div class="feature-card">
+                <h4>📊 Real-Time Dashboard</h4>
+                <p>Manager dashboard showing all active employees and real-time productivity metrics.</p>
+            </div>
+            <div class="feature-card">
+                <h4>📈 Comprehensive Reports</h4>
+                <p>Daily, weekly, and monthly productivity reports with export to PDF and Excel.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Key Models</h2>
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Purpose</th>
+                <th>Key Fields</th>
+            </tr>
+            <tr>
+                <td><strong>productivity.task</strong></td>
+                <td>Main tracking unit for work sessions</td>
+                <td>name, employee_id, state, start_time, total_working_time</td>
+            </tr>
+            <tr>
+                <td><strong>screenshot.log</strong></td>
+                <td>Screenshot storage and management</td>
+                <td>task_id, screenshot_image, timestamp, file_size</td>
+            </tr>
+            <tr>
+                <td><strong>activity.log</strong></td>
+                <td>Activity and event logging</td>
+                <td>task_id, activity_type, start_time, end_time, duration</td>
+            </tr>
+            <tr>
+                <td><strong>app.usage.log</strong></td>
+                <td>Application usage tracking</td>
+                <td>task_id, app_name, is_restricted, duration, app_category</td>
+            </tr>
+            <tr>
+                <td><strong>productivity.report</strong></td>
+                <td>Report generation and analytics</td>
+                <td>employee_id, period_start, period_end, productivity_percentage</td>
+            </tr>
+            <tr>
+                <td><strong>productivity.config</strong></td>
+                <td>Global configuration management</td>
+                <td>idle_timeout_minutes, screenshot_interval_minutes, restricted_apps</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Configuration Options</h2>
+        <div class="list-items">
+            <div class="list-item">
+                <strong>System Idle Timeout</strong><br/>
+                Minutes of inactivity before automatically pausing timer (default: 15)
+            </div>
+            <div class="list-item">
+                <strong>Screenshot Interval</strong><br/>
+                Minutes between automatic screenshot captures (default: 10)
+            </div>
+            <div class="list-item">
+                <strong>Screenshot Retention</strong><br/>
+                Days to keep screenshots before auto-deletion (default: 30)
+            </div>
+            <div class="list-item">
+                <strong>Activity Log Retention</strong><br/>
+                Days to keep activity logs before auto-deletion (default: 90)
+            </div>
+            <div class="list-item">
+                <strong>Restricted Applications</strong><br/>
+                Comma-separated list of apps to detect and pause on detection
+            </div>
+            <div class="list-item">
+                <strong>Notification Settings</strong><br/>
+                Enable/disable notifications for managers on specific events
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>User Roles and Permissions</h2>
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Capabilities</th>
+            </tr>
+            <tr>
+                <td><strong>Employee</strong></td>
+                <td>Create/manage own tasks, view own statistics, start/stop timer</td>
+            </tr>
+            <tr>
+                <td><strong>Manager</strong></td>
+                <td>View all employees, generate reports, configure settings, export data</td>
+            </tr>
+            <tr>
+                <td><strong>Administrator</strong></td>
+                <td>Full access to all features and system configuration</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Installation Steps</h2>
+        <div class="highlight">
+            <strong>Important:</strong> This module requires that all employees are linked to Odoo users before tracking can begin.
+        </div>
+        <ol>
+            <li>Copy the module folder to: <code>C:\Program Files\Odoo 18.0.20251111\server\custom_addons\</code></li>
+            <li>Restart Odoo server or refresh module list from web interface</li>
+            <li>Search for "Employee Productivity Tracker" in Apps</li>
+            <li>Click Install button</li>
+            <li>Configure settings in: Productivity Tracking → Settings → Configuration</li>
+            <li>Ensure employees are created and linked to users</li>
+            <li>Start tracking from: Productivity Tracking → My Tasks</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>API Endpoints</h2>
+        <p>The module exposes REST API endpoints for external integrations:</p>
+        <div class="code-block">
+# Task Management
+POST   /api/productivity/start_task
+POST   /api/productivity/stop_task/&lt;task_id&gt;
+POST   /api/productivity/pause_task/&lt;task_id&gt;
+POST   /api/productivity/resume_task/&lt;task_id&gt;
+
+# Data Logging
+POST   /api/productivity/upload_screenshot
+POST   /api/productivity/log_activity
+POST   /api/productivity/log_app_usage
+POST   /api/productivity/end_app_usage/&lt;app_usage_id&gt;
+
+# Queries
+GET    /api/productivity/get_task_summary/&lt;task_id&gt;
+GET    /api/productivity/get_employee_active_task
+
+# Validation
+POST   /api/productivity/detect_restricted_app
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Menu Structure</h2>
+        <div class="code-block">
+Productivity Tracking (Main Menu)
+├── My Tasks
+├── Dashboard
+├── Reports
+│   └── Productivity Reports
+├── Data
+│   ├── Screenshots
+│   ├── Activity Logs
+│   └── App Usage
+└── Settings
+    └── Configuration
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>File Structure</h2>
+        <div class="code-block">
+employee_productivity_tracker/
+├── __init__.py              # Module initialization
+├── __manifest__.py          # Module manifest
+├── README.md               # Documentation
+├── INSTALLATION_GUIDE.txt  # Installation instructions
+├── migration_utils.py      # Data migration utilities
+├── models/
+│   ├── __init__.py
+│   ├── productivity_task.py
+│   ├── screenshot_log.py
+│   ├── activity_log.py
+│   ├── app_usage_log.py
+│   ├── productivity_config.py
+│   └── productivity_report.py
+├── views/
+│   ├── productivity_task_views.xml
+│   ├── screenshot_log_views.xml
+│   ├── activity_log_views.xml
+│   ├── app_usage_log_views.xml
+│   ├── manager_dashboard_views.xml
+│   ├── productivity_config_views.xml
+│   └── menu_items.xml
+├── controllers/
+│   ├── __init__.py
+│   └── main.py
+├── reports/
+│   └── productivity_report.xml
+├── security/
+│   └── ir.model.access.csv
+└── static/
+    ├── src/
+    │   ├── js/
+    │   │   └── timer.js
+    │   └── css/
+    │       └── styles.css
+    └── description/
+        └── icon.svg
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Database Tables</h2>
+        <p>The module creates the following database tables:</p>
+        <ul>
+            <li><code>productivity_task</code> - Main task tracking table</li>
+            <li><code>screenshot_log</code> - Screenshot storage</li>
+            <li><code>activity_log</code> - Activity event logs</li>
+            <li><code>app_usage_log</code> - Application usage tracking</li>
+            <li><code>productivity_report</code> - Generated reports</li>
+            <li><code>productivity_config</code> - Configuration storage</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Security and Access Control</h2>
+        <p>Access is controlled through Odoo's built-in security model:</p>
+        <ul>
+            <li><strong>Record Rules:</strong> Employees can only see their own data</li>
+            <li><strong>Module Permissions:</strong> Defined in <code>security/ir.model.access.csv</code></li>
+            <li><strong>Group-Based Access:</strong> Different permissions for Employees, Managers, Admins</li>
+            <li><strong>Data Encryption:</strong> Screenshots stored as binary attachments with access control</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Performance Considerations</h2>
+        <ul>
+            <li>Screenshots are automatically compressed to configured size limit</li>
+            <li>Old data is automatically cleaned based on retention settings</li>
+            <li>Indexes on frequently queried fields for fast access</li>
+            <li>Configuration is cached to reduce database queries</li>
+            <li>Suitable for organizations with 100-1000+ employees</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Troubleshooting Guide</h2>
+        <table>
+            <tr>
+                <th>Issue</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>Module not in apps list</td>
+                <td>Restart Odoo server and refresh browser cache (Ctrl+Shift+Delete)</td>
+            </tr>
+            <tr>
+                <td>Timer won't start</td>
+                <td>Verify employee is linked to current user and user has permissions</td>
+            </tr>
+            <tr>
+                <td>Screenshots not captured</td>
+                <td>Check screenshot is enabled in config and interval is set properly</td>
+            </tr>
+            <tr>
+                <td>Permission denied errors</td>
+                <td>Check user's groups and role in Settings → Users</td>
+            </tr>
+            <tr>
+                <td>Database errors</td>
+                <td>Check Odoo logs in: /var/log/odoo/ or logs folder</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Future Enhancements</h2>
+        <ul>
+            <li>Machine learning-based idle detection</li>
+            <li>Real-time productivity alerts</li>
+            <li>Mobile app integration</li>
+            <li>Advanced analytics dashboard</li>
+            <li>Video recording capability</li>
+            <li>Keystroke analytics</li>
+            <li>Integration with calendar/meetings</li>
+            <li>Automated email reports</li>
+        </ul>
+    </div>
+
+    <div class="success">
+        <strong>✓ Installation Ready!</strong><br/>
+        All files are ready to be deployed. Follow the INSTALLATION_GUIDE.txt for step-by-step instructions.
+    </div>
+
+    <footer>
+        <p><strong>Employee Productivity Tracker v1.0.0</strong></p>
+        <p>Odoo Module for Real-Time Productivity Tracking | LGPL-3 License</p>
+        <p>© 2025 Your Company Name | <a href="https://yourcompany.com">https://yourcompany.com</a></p>
+    </footer>
+</body>
+</html>

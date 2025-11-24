@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Main Menu Item -->
+        <menuitem
+            id="employee_productivity_tracker_menu"
+            name="Productivity Tracking"
+            sequence="50"
+            web_icon="employee_productivity_tracker,static/description/icon.png"/>
+
+        <!-- Submenu: My Tasks -->
+        <menuitem
+            id="menu_my_tasks"
+            name="My Tasks"
+            parent="employee_productivity_tracker_menu"
+            action="productivity_task_action"
+            sequence="10"/>
+
+        <!-- Submenu: Activity Dashboard -->
+        <menuitem
+            id="menu_manager_dashboard"
+            name="Live Dashboard"
+            parent="employee_productivity_tracker_menu"
+            action="productivity_dashboard_action"
+            sequence="20"/>
+
+        <!-- Submenu: All Tasks View -->
+        <menuitem
+            id="menu_all_tasks"
+            name="All Employee Tasks"
+            parent="employee_productivity_tracker_menu"
+            action="manager_dashboard_action"
+            sequence="25"/>
+
+        <!-- Submenu: Reporting -->
+        <menuitem
+            id="menu_reporting"
+            name="Reports"
+            parent="employee_productivity_tracker_menu"
+            sequence="30"/>
+
+        <!-- Submenu: Reports - Generate Summary Report -->
+        <menuitem
+            id="menu_summary_report"
+            name="Generate Summary Report"
+            parent="menu_reporting"
+            action="productivity_summary_report_action"
+            sequence="5"/>
+
+        <!-- Submenu: Reports - Productivity Reports -->
+        <menuitem
+            id="menu_productivity_reports"
+            name="Historical Reports"
+            parent="menu_reporting"
+            action="productivity_report_action"
+            sequence="10"/>
+
+        <!-- Submenu: Data -->
+        <menuitem
+            id="menu_data"
+            name="Data"
+            parent="employee_productivity_tracker_menu"
+            sequence="40"/>
+
+        <!-- Screenshots menu removed -->
+
+        <!-- Submenu: Data - Activity Logs -->
+        <menuitem
+            id="menu_activity_logs"
+            name="Activity Logs"
+            parent="menu_data"
+            action="activity_log_action"
+            sequence="20"/>
+
+        <!-- Submenu: Data - App Usage -->
+        <menuitem
+            id="menu_app_usage"
+            name="App Usage"
+            parent="menu_data"
+            action="app_usage_log_action"
+            sequence="30"/>
+
+        <!-- Submenu: Settings -->
+        <menuitem
+            id="menu_settings"
+            name="Settings"
+            parent="employee_productivity_tracker_menu"
+            sequence="50"
+            groups="base.group_erp_manager"/>
+
+        <!-- Submenu: Settings - Configuration -->
+        <menuitem
+            id="menu_productivity_config"
+            name="Configuration"
+            parent="menu_settings"
+            action="productivity_config_action"
+            sequence="10"
+            groups="base.group_erp_manager"/>
+
+    </data>
+</odoo>

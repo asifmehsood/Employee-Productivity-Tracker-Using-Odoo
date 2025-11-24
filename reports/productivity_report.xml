@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Productivity Report Tree View -->
+        <record id="productivity_report_tree_view" model="ir.ui.view">
+            <field name="name">productivity.report.tree</field>
+            <field name="model">productivity.report</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="report_type"/>
+                    <field name="period_start"/>
+                    <field name="period_end"/>
+                    <field name="productivity_percentage"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Productivity Report Form View -->
+        <record id="productivity_report_form_view" model="ir.ui.view">
+            <field name="name">productivity.report.form</field>
+            <field name="model">productivity.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="export_to_pdf" type="object" string="Export PDF" class="btn-primary" 
+                                invisible="state not in ['generated', 'reviewed']"/>
+                        <button name="export_to_excel" type="object" string="Export Excel" class="btn-info" 
+                                invisible="state not in ['generated', 'reviewed']"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,generated,reviewed"/>
+                    </header>
+                    <sheet>
+                        <h2><field name="name"/></h2>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="report_type"/>
+                            </group>
+                            <group>
+                                <field name="period_start"/>
+                                <field name="period_end"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Summary">
+                                <group>
+                                    <group>
+                                        <field name="total_working_hours"/>
+                                        <field name="total_paused_hours"/>
+                                        <field name="total_idle_hours"/>
+                                    </group>
+                                    <group>
+                                        <field name="productivity_percentage" widget="progressbar"/>
+                                        <field name="tasks_completed"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="App Usage">
+                                <group>
+                                    <group>
+                                        <field name="most_used_app"/>
+                                        <field name="restricted_app_time"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Tasks">
+                                <field name="task_ids">
+                                    <list create="false" edit="false" delete="false">
+                                        <field name="name"/>
+                                        <field name="state"/>
+                                        <field name="total_working_time"/>
+                                        <field name="total_paused_time"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Screenshots tab removed -->
+
+                            <page string="Manager Notes">
+                                <field name="notes" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Productivity Report Search View -->
+        <record id="productivity_report_search_view" model="ir.ui.view">
+            <field name="name">productivity.report.search</field>
+            <field name="model">productivity.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="period_start"/>
+                    <field name="period_end"/>
+                    <separator/>
+                    <filter name="daily" string="Daily" domain="[('report_type', '=', 'daily')]"/>
+                    <filter name="weekly" string="Weekly" domain="[('report_type', '=', 'weekly')]"/>
+                    <filter name="monthly" string="Monthly" domain="[('report_type', '=', 'monthly')]"/>
+                    <separator/>
+                    <filter name="generated" string="Generated" domain="[('state', '=', 'generated')]"/>
+                    <filter name="reviewed" string="Reviewed" domain="[('state', '=', 'reviewed')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                        <filter name="group_report_type" string="Report Type" context="{'group_by': 'report_type'}"/>
+                        <filter name="group_date" string="Period" context="{'group_by': 'period_start'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Productivity Report Action -->
+        <record id="productivity_report_action" model="ir.actions.act_window">
+            <field name="name">Productivity Reports</field>
+            <field name="res_model">productivity.report</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No reports generated yet. Reports are generated automatically based on your settings.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

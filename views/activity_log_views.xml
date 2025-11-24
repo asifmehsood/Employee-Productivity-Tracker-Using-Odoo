@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Activity Log Tree View -->
+        <record id="activity_log_tree_view" model="ir.ui.view">
+            <field name="name">activity.log.tree</field>
+            <field name="model">activity.log</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="task_id"/>
+                    <field name="employee_id"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="activity_type"/>
+                    <field name="duration"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Activity Log Form View -->
+        <record id="activity_log_form_view" model="ir.ui.view">
+            <field name="name">activity.log.form</field>
+            <field name="model">activity.log</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="task_id"/>
+                                <field name="employee_id"/>
+                                <field name="activity_type"/>
+                            </group>
+                            <group>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="duration"/>
+                            </group>
+                        </group>
+
+                        <group string="Activity Details">
+                            <field name="description" nolabel="1"/>
+                            <field name="app_name"/>
+                        </group>
+
+                        <group string="Events">
+                            <group>
+                                <field name="keyboard_events"/>
+                                <field name="mouse_events"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Activity Log Search View -->
+        <record id="activity_log_search_view" model="ir.ui.view">
+            <field name="name">activity.log.search</field>
+            <field name="model">activity.log</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="task_id"/>
+                    <field name="employee_id"/>
+                    <field name="activity_type"/>
+                    <separator/>
+                    <filter name="timer_start" string="Timer Start" domain="[('activity_type', '=', 'timer_start')]"/>
+                    <filter name="pause" string="Paused" domain="[('activity_type', '=', 'pause')]"/>
+                    <filter name="idle" string="Idle Detected" domain="[('activity_type', '=', 'idle_detected')]"/>
+                    <filter name="restricted" string="Restricted App" domain="[('activity_type', '=', 'restricted_app_detected')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_activity_type" string="Activity Type" context="{'group_by': 'activity_type'}"/>
+                        <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                        <filter name="group_date" string="Date" context="{'group_by': 'start_time'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Activity Log Action -->
+        <record id="activity_log_action" model="ir.actions.act_window">
+            <field name="name">Activity Logs</field>
+            <field name="res_model">activity.log</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Activity logs will be recorded automatically.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Productivity Configuration Form View -->
+        <record id="productivity_config_form_view" model="ir.ui.view">
+            <field name="name">productivity.config.form</field>
+            <field name="model">productivity.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>Productivity Tracker Configuration</h1>
+                        <div class="alert alert-info" role="alert">
+                            <p>Configure the settings for automatic productivity tracking and monitoring</p>
+                        </div>
+
+                        <notebook>
+                            <page string="Timer Settings">
+                                <group>
+                                    <group>
+                                        <field name="idle_detection_enabled"/>
+                                        <field name="idle_timeout_minutes" readonly="not idle_detection_enabled"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Screenshot Settings">
+                                <group>
+                                    <group>
+                                        <field name="screenshot_enabled"/>
+                                        <field name="screenshot_interval_minutes" readonly="not screenshot_enabled"/>
+                                    </group>
+                                    <group>
+                                        <field name="screenshot_retention_days"/>
+                                        <field name="max_screenshot_size_kb"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Restricted Applications">
+                                <group>
+                                    <field name="restricted_app_detection"/>
+                                    <field name="restricted_apps" nolabel="1" readonly="not restricted_app_detection"/>
+                                </group>
+                                <p class="text-muted">
+                                    Enter app names separated by commas. When detected, timer will be paused automatically.
+                                </p>
+                            </page>
+
+                            <page string="Activity Tracking">
+                                <group>
+                                    <group>
+                                        <field name="track_keyboard_events"/>
+                                        <field name="track_mouse_events"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Notifications">
+                                <group>
+                                    <group>
+                                        <field name="send_notifications"/>
+                                    </group>
+                                    <group>
+                                        <field name="notify_on_restricted_app" readonly="not send_notifications"/>
+                                        <field name="notify_on_prolonged_idle" readonly="not send_notifications"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Report Settings">
+                                <group>
+                                    <group>
+                                        <field name="auto_generate_reports"/>
+                                        <field name="report_generation_time" readonly="not auto_generate_reports"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="Data Retention">
+                                <group>
+                                    <group>
+                                        <field name="delete_old_activity_logs"/>
+                                        <field name="activity_log_retention_days" readonly="not delete_old_activity_logs"/>
+                                    </group>
+                                </group>
+                                <p class="text-muted">
+                                    Old data will be automatically deleted based on retention settings.
+                                </p>
+                            </page>
+
+                            <page string="Company">
+                                <group>
+                                    <field name="company_id"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Productivity Configuration Action -->
+        <record id="productivity_config_action" model="ir.actions.act_window">
+            <field name="name">Productivity Configuration</field>
+            <field name="res_model">productivity.config</field>
+            <field name="view_mode">form</field>
+            <field name="res_id">1</field>
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p>
+                    Configure global settings for the Productivity Tracker module.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+.o_timer_widget {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.timer_display {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.timer_display.running {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.timer_display.stopped {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 2px solid #dee2e6;
+}
+
+.timer_time {
+    font-family: 'Courier New', monospace;
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.6);
+    }
+}
+
+.badge {
+    font-size: 12px;
+    padding: 4px 8px;
+}

@@ -1,0 +1,90 @@
+/* Timer Popup Styles */
+.timer-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    animation: slideInUp 0.3s ease-out;
+}
+
+.timer-popup-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    color: white;
+    min-width: 280px;
+    overflow: hidden;
+}
+
+.timer-popup-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.timer-popup-icon {
+    font-size: 24px;
+}
+
+.timer-popup-header strong {
+    flex: 1;
+    font-size: 16px;
+}
+
+.timer-popup-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.timer-popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.timer-popup-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.timer-popup-time {
+    font-size: 36px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.timer-popup-status {
+    font-size: 14px;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Notification styling */
+.o_timer_notification {
+    border-left: 4px solid #667eea !important;
+}

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Productivity Dashboard List View -->
+        <record id="productivity_dashboard_tree_view" model="ir.ui.view">
+            <field name="name">productivity.dashboard.tree</field>
+            <field name="model">productivity.dashboard</field>
+            <field name="arch" type="xml">
+                <list create="false" edit="false" delete="false">
+                    <field name="employee_id"/>
+                    <field name="is_currently_active" widget="boolean_toggle"/>
+                    <field name="total_tasks_today"/>
+                    <field name="total_working_hours_today" widget="float_time"/>
+                    <field name="total_paused_hours_today" widget="float_time"/>
+                    <field name="total_screenshots_today"/>
+                    <field name="productive_screenshots"/>
+                    <field name="unproductive_screenshots"/>
+                    <field name="most_used_app_today"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Productivity Dashboard Kanban View -->
+        <record id="productivity_dashboard_kanban_view" model="ir.ui.view">
+            <field name="name">productivity.dashboard.kanban</field>
+            <field name="model">productivity.dashboard</field>
+            <field name="arch" type="xml">
+                <kanban create="false" edit="false" delete="false">
+                    <field name="employee_id"/>
+                    <field name="is_currently_active"/>
+                    <field name="total_working_hours_today"/>
+                    <field name="total_paused_hours_today"/>
+                    <field name="productive_screenshots"/>
+                    <field name="unproductive_screenshots"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary"><field name="employee_id"/></div>
+                                        <div class="text-muted">
+                                            <span t-if="record.is_currently_active.raw_value" class="badge bg-success">Active</span>
+                                            <span t-else="" class="badge bg-secondary">Idle</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_card_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Working Hours Today:</strong><br/>
+                                            <field name="total_working_hours_today" widget="float_time"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Paused Time:</strong><br/>
+                                            <field name="total_paused_hours_today" widget="float_time"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <strong>Screenshots:</strong>
+                                            <span class="badge bg-success"><field name="productive_screenshots"/> Productive</span>
+                                            <span class="badge bg-warning"><field name="unproductive_screenshots"/> Unproductive</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <strong>Most Used:</strong> <field name="most_used_app_today"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Productivity Dashboard Action -->
+        <record id="productivity_dashboard_action" model="ir.actions.act_window">
+            <field name="name">Productivity Dashboard</field>
+            <field name="res_model">productivity.dashboard</field>
+            <field name="view_mode">kanban,list</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No productivity data found.
+                </p>
+                <p>
+                    Start tracking employee productivity by creating tasks.
+                </p>
+            </field>
+        </record>
+
+        <!-- Summary Report Form View -->
+        <record id="productivity_summary_report_form_view" model="ir.ui.view">
+            <field name="name">productivity.summary.report.form</field>
+            <field name="model">productivity.summary.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
+                            <group>
+                                <field name="total_tasks"/>
+                                <field name="total_working_hours" widget="float_time"/>
+                                <field name="total_paused_hours" widget="float_time"/>
+                            </group>
+                        </group>
+
+                        <group string="Screenshot Analysis">
+                            <group>
+                                <field name="total_screenshots"/>
+                                <field name="productive_screenshots"/>
+                                <field name="unproductive_screenshots"/>
+                            </group>
+                            <group>
+                                <field name="productivity_score" widget="percentage"/>
+                            </group>
+                        </group>
+
+                        <footer>
+                            <button name="action_view_tasks" string="View Tasks" type="object" class="btn-primary"/>
+                            <button name="action_view_screenshots" string="View Screenshots" type="object" class="btn-primary"/>
+                            <button name="action_export_report" string="Export Report" type="object" class="btn-success"/>
+                            <button string="Cancel" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Summary Report Action -->
+        <record id="productivity_summary_report_action" model="ir.actions.act_window">
+            <field name="name">Generate Productivity Report</field>
+            <field name="res_model">productivity.summary.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Manager Dashboard - Show All Employee Tasks -->
+        <record id="manager_dashboard_tree_view" model="ir.ui.view">
+            <field name="name">manager.dashboard.tree</field>
+            <field name="model">productivity.task</field>
+            <field name="arch" type="xml">
+                <list create="false" edit="false" delete="false">
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="start_time"/>
+                    <field name="total_working_time" widget="float_time"/>
+                    <field name="total_paused_time" widget="float_time"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Manager Dashboard Action -->
+        <record id="manager_dashboard_action" model="ir.actions.act_window">
+            <field name="name">All Employee Tasks</field>
+            <field name="res_model">productivity.task</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_group_by_employee': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No productivity tasks found.
+                </p>
+                <p>
+                    Start tracking employee productivity by creating tasks.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

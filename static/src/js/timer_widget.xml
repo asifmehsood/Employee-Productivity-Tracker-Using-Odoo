@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="employee_productivity_tracker.TimerWidget">
+        <div class="o_timer_widget_display" style="padding: 20px; min-height: 80px;">
+            <!-- Start Button -->
+            <div t-if="state.showStartButton" class="text-center">
+                <button class="btn btn-success btn-lg"
+                        style="margin: 10px 0; font-size: 18px; padding: 12px 30px;"
+                        t-on-click="onStartClick">
+                    <i class="fa fa-play" style="margin-right: 8px;"/> Start Timer
+                </button>
+            </div>
+            
+            <!-- Timer Display -->
+            <div t-if="!state.showStartButton" class="text-center">
+                <div style="margin: 15px 0;">
+                    <i t-att-class="'fa ' + statusIcon + ' ' + statusClass" style="margin-right: 8px; font-size: 28px;"/>
+                    <span t-att-class="'timer_value ' + statusClass" 
+                          style="font-size: 32px; font-weight: bold; font-family: monospace;" 
+                          t-esc="displayValue"/>
+                </div>
+                <div t-if="statusText" class="text-muted" style="font-size: 14px;">
+                    <small t-esc="statusText"/>
+                </div>
+                
+                <!-- Pause/Resume Button -->
+                <div style="margin-top: 15px;" t-if="state.isRunning">
+                    <button class="btn btn-warning" t-on-click="onPauseClick">
+                        <i class="fa fa-pause"/> Pause
+                    </button>
+                </div>
+                <div style="margin-top: 15px;" t-if="state.isPaused">
+                    <button class="btn btn-success" t-on-click="onResumeClick">
+                        <i class="fa fa-play"/> Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

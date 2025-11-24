@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- App Usage Log Tree View -->
+        <record id="app_usage_log_tree_view" model="ir.ui.view">
+            <field name="name">app.usage.log.tree</field>
+            <field name="model">app.usage.log</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="task_id"/>
+                    <field name="employee_id"/>
+                    <field name="app_name"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="duration"/>
+                    <field name="is_restricted"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- App Usage Log Form View -->
+        <record id="app_usage_log_form_view" model="ir.ui.view">
+            <field name="name">app.usage.log.form</field>
+            <field name="model">app.usage.log</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="task_id"/>
+                                <field name="employee_id"/>
+                                <field name="app_name"/>
+                            </group>
+                            <group>
+                                <field name="is_restricted"/>
+                                <field name="app_category"/>
+                            </group>
+                        </group>
+
+                        <group string="Usage Duration">
+                            <group>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="duration"/>
+                            </group>
+                        </group>
+
+                        <group string="App Details">
+                            <group>
+                                <field name="app_path"/>
+                                <field name="window_title"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- App Usage Log Search View -->
+        <record id="app_usage_log_search_view" model="ir.ui.view">
+            <field name="name">app.usage.log.search</field>
+            <field name="model">app.usage.log</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="app_name"/>
+                    <field name="employee_id"/>
+                    <field name="task_id"/>
+                    <separator/>
+                    <filter name="restricted" string="Restricted Apps" domain="[('is_restricted', '=', True)]"/>
+                    <filter name="work" string="Work Apps" domain="[('app_category', '=', 'work')]"/>
+                    <filter name="entertainment" string="Entertainment" domain="[('app_category', '=', 'entertainment')]"/>
+                    <filter name="social" string="Social Media" domain="[('app_category', '=', 'social_media')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_app" string="Application" context="{'group_by': 'app_name'}"/>
+                        <filter name="group_category" string="Category" context="{'group_by': 'app_category'}"/>
+                        <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                        <filter name="group_date" string="Date" context="{'group_by': 'start_time'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- App Usage Log Action -->
+        <record id="app_usage_log_action" model="ir.actions.act_window">
+            <field name="name">App Usage</field>
+            <field name="res_model">app.usage.log</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Application usage will be tracked automatically.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

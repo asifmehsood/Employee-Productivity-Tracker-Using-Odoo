@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Productivity Task Tree View -->
+        <record id="productivity_task_tree_view" model="ir.ui.view">
+            <field name="name">productivity.task.tree</field>
+            <field name="model">productivity.task</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="state" decoration-success="state == 'running'" decoration-warning="state == 'draft'" decoration-info="state == 'paused'"/>
+                    <field name="stop_time"/>
+                    <field name="total_working_time" widget="float_time"/>
+                    <field name="total_paused_time" widget="float_time"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Productivity Task Form View -->
+        <record id="productivity_task_form_view" model="ir.ui.view">
+            <field name="name">productivity.task.form</field>
+            <field name="model">productivity.task</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,running,paused,completed"/>
+                    </header>
+                    <sheet>
+                        <!-- Invisible fields needed by timer widget -->
+                        <field name="start_time" invisible="1"/>
+                        
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="employee_id"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="stop_time"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Timer Widget with Start Button -->
+                        <div class="alert alert-info text-center" role="status" style="margin: 20px 0;">
+                            <field name="timer_display" widget="timer_widget" nolabel="1"/>
+                            <p style="margin-top: 10px; margin-bottom: 0;" invisible="state != 'running'">
+                                <i class="fa fa-stop-circle"/> Will auto-stop at: <field name="stop_time" readonly="1" nolabel="1"/>
+                            </p>
+                        </div>
+                        
+                        <group string="Time Tracking">
+                            <group>
+                                <field name="total_working_time" widget="float_time"/>
+                                <field name="total_paused_time" widget="float_time"/>
+                                <field name="pause_count"/>
+                            </group>
+                            <group>
+                                <field name="is_idle"/>
+                                <field name="idle_start_time"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <!-- Screenshots tab removed -->
+                            
+                            <page string="Activity Log">\n                                <field name="activity_log_ids">
+                                    <list>
+                                        <field name="start_time"/>
+                                        <field name="activity_type"/>
+                                        <field name="end_time"/>
+                                        <field name="duration"/>
+                                        <field name="description"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <page string="App Usage">
+                                <field name="app_usage_ids">
+                                    <list>
+                                        <field name="start_time"/>
+                                        <field name="app_name"/>
+                                        <field name="app_category"/>
+                                        <field name="is_restricted"/>
+                                        <field name="duration"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Productivity Task Kanban View -->
+        <record id="productivity_task_kanban_view" model="ir.ui.view">
+            <field name="name">productivity.task.kanban</field>
+            <field name="model">productivity.task</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="state"/>
+                    <field name="total_working_time"/>
+                    <field name="total_paused_time"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="oe_kanban_card">
+                                <h4><field name="name"/></h4>
+                                <p>Employee: <field name="employee_id"/></p>
+                                <p>Working Time: <field name="total_working_time"/> hrs</p>
+                                <p>Paused Time: <field name="total_paused_time"/> hrs</p>
+                                <span class="badge badge-info"><field name="state"/></span>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Productivity Task Search View -->
+        <record id="productivity_task_search_view" model="ir.ui.view">
+            <field name="name">productivity.task.search</field>
+            <field name="model">productivity.task</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Task Name"/>
+                    <field name="employee_id"/>
+                    <separator/>
+                    <filter name="filter_running" string="Running" domain="[('state', '=', 'running')]"/>
+                    <filter name="filter_paused" string="Paused" domain="[('state', '=', 'paused')]"/>
+                    <filter name="filter_completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                        <filter name="group_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                        <filter name="group_date" string="Start Date" context="{'group_by': 'start_time'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Productivity Task Action -->
+        <record id="productivity_task_action" model="ir.actions.act_window">
+            <field name="name">Productivity Tasks</field>
+            <field name="res_model">productivity.task</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first productivity task to start tracking!
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
